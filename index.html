@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VLA Property Solutions</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts (Archivo for body, Montserrat as a substitute for Stara) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles & Font Configuration -->
+    <style>
+        /* * To use the "Stara" font, you need to have the font files (e.g., .woff, .woff2).
+         * You would then load them using the @font-face rule like below.
+         * Replace 'path/to/stara-bold.woff2' with the actual path to your font file.
+        */
+        
+        @font-face {
+            font-family: 'Stara';
+            src: url('./stara-bold.otf') format('otf');
+            font-weight: 700;
+            font-style: normal;
+        }
+        
+
+        /* Applying fonts based on the branding guide */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Stara', 'Montserrat', sans-serif; /* Using 'Stara' as primary, Montserrat as fallback */
+        }
+        body, p, span, a, li, input, textarea, button {
+            font-family: 'Archivo', sans-serif;
+        }
+
+        /* Custom Colors from PDF */
+        .vla-blue-dark { color: #031838; }
+        .vla-blue-light { color: #4A90E2; }
+        .bg-vla-blue-dark { background-color: #031838; }
+        .bg-vla-blue-light { background-color: #4A90E2; }
+        .bg-vla-cream { background-color: #FDFBF5; }
+        .bg-vla-white { background-color: #FFFFFF; }
+        .border-vla-blue-dark { border-color: #031838; }
+
+        /* Slider styles */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 70vh; /* Adjust height as needed */
+            overflow: hidden;
+        }
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transition: opacity 5s ease-in-out;
+            opacity: 0;
+        }
+        .slide.active {
+            opacity: 1;
+        }
+        .slide-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 2;
+        }
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.5); /* Darken image to make text readable */
+        }
+        
+        /* Navigation smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }   
+    </style>
+</head>
+<body class="bg-vla-cream text-gray-800">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-vla-blue-dark shadow-md fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#about">
+                <img src="./logo_header.png" style="width: auto; height: 56px;" alt="VLA Property Solutions Logo" onerror="this.onerror=null;this.src='https://placehold.co/200x50/031838/FFFFFF?text=VLA+Logo';">
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8 items-center">
+                <a href="#about" class="text-white hover:text-gray-300 transition duration-300">About</a>
+                <a href="#why-us" class="text-white hover:text-gray-300 transition duration-300">Why Us</a>
+                <a href="#coverage" class="text-white hover:text-gray-300 transition duration-300">Coverage</a>
+                <a href="#contact" class="text-white hover:text-gray-300 transition duration-300">Contact</a>
+                <a href="#careers" class="bg-vla-blue-light text-white px-4 py-2 rounded-md hover:opacity-90 transition duration-300">Work with Us</a>
+            </nav>
+            
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-vla-blue-dark">
+            <a href="#about" class="block py-2 px-6 text-sm text-white hover:bg-vla-blue-light/20">About</a>
+            <a href="#why-us" class="block py-2 px-6 text-sm text-white hover:bg-vla-blue-light/20">Why Us</a>
+            <a href="#coverage" class="block py-2 px-6 text-sm text-white hover:bg-vla-blue-light/20">Coverage</a>
+            <a href="#contact" class="block py-2 px-6 text-sm text-white hover:bg-vla-blue-light/20">Contact</a>
+            <a href="#careers" class="block py-2 px-6 text-sm text-white hover:bg-vla-blue-light/20">Work with Us</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Section: About (with Hero Slider) -->
+        <section id="about" class="pt-20">
+            <!-- Slider Container -->
+            <div class="slider-container">
+                <!-- Slide 1 -->
+                <div class="slide active">
+                    <img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Beautiful American suburban house">
+                    <div class="slide-content p-4">
+                        <h2 class="text-4xl md:text-6xl font-bold mb-4">Excellence in Property Inspections</h2>
+                        <p class="text-lg md:text-xl max-w-2xl mx-auto">Delivering confidence, precision, and speed at every stage of the insurance approval process.</p>
+                    </div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="slide">
+                    <img src="https://images.pexels.com/photos/210617/pexels-photo-210617.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Modern American house with a two-car garage">
+                    <div class="slide-content p-4">
+                        <h2 class="text-4xl md:text-6xl font-bold mb-4">Transparent & Efficient Solutions</h2>
+                        <p class="text-lg md:text-xl max-w-2xl mx-auto">Combining deep market knowledge with a transparent, results-driven approach to consistently exceed expectations.</p>
+                    </div>
+                </div>
+                 <!-- Slide 3 -->
+                <div class="slide">
+                    <img src="https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Large suburban family home">
+                    <div class="slide-content p-4">
+                        <h2 class="text-4xl md:text-6xl font-bold mb-4">Your Trusted Partner in Real Estate</h2>
+                        <p class="text-lg md:text-xl max-w-2xl mx-auto">Committed to delivering reliable, accurate results for banks and insurance companies.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Text Content -->
+            <div class="container mx-auto px-6 py-16 text-center">
+                 <h2 class="text-3xl md:text-4xl font-bold vla-blue-dark mb-6">About VLA Property Solutions</h2>
+                 <p class="max-w-4xl mx-auto text-gray-600 leading-relaxed">
+                    We specialize in property inspections across the USA. Our commitment is to deliver excellent service by ensuring confidence, accuracy, and efficiency at every stage of the process. Our team combines in-depth knowledge of the real estate market and local regulations with a transparent and efficient approach, consistently delivering results that exceed expectations.
+                 </p>
+            </div>
+        </section>
+
+        <!-- Section: Why Us -->
+        <section id="why-us" class="bg-white py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold vla-blue-dark">Why Choose Us?</h2>
+                    <p class="text-gray-600 mt-2">Our core values drive our success and your peace of mind.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+                    <!-- Competence -->
+                    <div class="p-6">
+                        <div class="flex items-center justify-center h-16 w-16 mx-auto mb-4 rounded-full bg-vla-blue-light text-white">
+                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold vla-blue-dark mb-2">Competence</h3>
+                        <p class="text-gray-600">Our team has extensive expertise in the U.S. real estate market and its intricate regulations.</p>
+                    </div>
+                    <!-- Seriousness -->
+                    <div class="p-6">
+                        <div class="flex items-center justify-center h-16 w-16 mx-auto mb-4 rounded-full bg-vla-blue-light text-white">
+                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.286zm-1.125 4.5l-2.09-2.09a.75.75 0 00-1.06 1.06l2.09 2.09-2.09 2.09a.75.75 0 101.06 1.06l2.09-2.09 2.09 2.09a.75.75 0 001.06-1.06l-2.09-2.09z"/></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold vla-blue-dark mb-2">Seriousness</h3>
+                        <p class="text-gray-600">We approach every task with the highest level of professionalism and integrity, delivering reliable and trustworthy results.</p>
+                    </div>
+                    <!-- Agility -->
+                    <div class="p-6">
+                        <div class="flex items-center justify-center h-16 w-16 mx-auto mb-4 rounded-full bg-vla-blue-light text-white">
+                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold vla-blue-dark mb-2">Agility</h3>
+                        <p class="text-gray-600">With optimized processes and a responsive team, we deliver fast, efficient service while maintaining accuracy.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Coverage -->
+        <section id="coverage" class="py-20">
+            <div class="container mx-auto px-6 text-center">
+                 <h2 class="text-3xl md:text-4xl font-bold vla-blue-dark mb-6">Our Coverage Area</h2>
+                 <p class="max-w-3xl mx-auto text-gray-600 mb-8">
+                     We offer property inspection services in key states and major U.S. metro areas. Contact us to check coverage in your region.
+                 </p>
+                 <div class="max-w-4xl mx-auto">
+                    <img src="./map_coverage.fw.png" alt="Map of USA showing service coverage" class="rounded-lg shadow-lg">
+                 </div>
+            </div>
+        </section>
+
+        <!-- Section: Contact -->
+        <section id="contact" class="bg-white py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold vla-blue-dark">Get In Touch</h2>
+                    <p class="text-gray-600 mt-2">Have a question? We’d love to hear from you. Send us a message, and we’ll get back to you as soon as possible.</p>
+                </div>
+                <div class="max-w-2xl mx-auto">
+                    <form id="contact-form" action="https://formspree.io/f/mnnvdyzn" method="POST"  class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                            <input type="text" name="name" id="name" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-vla-blue-light focus:border-vla-blue-light">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                            <input type="email" name="email" id="email" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-vla-blue-light focus:border-vla-blue-light">
+                        </div>
+                         <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700">Subject</label>
+                            <input type="text" name="subject" id="subject" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-vla-blue-light focus:border-vla-blue-light">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                            <textarea id="message" name="message" rows="4" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-vla-blue-light focus:border-vla-blue-light"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="w-full md:w-auto inline-flex justify-center py-3 px-8 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-vla-blue-dark hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-vla-blue-light transition duration-300">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Careers (Work with Us) -->
+        <section id="careers" class="py-20">
+             <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold vla-blue-dark">Work With Us</h2>
+                    <p class="text-gray-600 mt-2">Join our team of experts and be part of our mission to redefine excellence in the property inspection industry.</p>
+                </div>
+                <div class="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold vla-blue-dark mb-6">Job Application Form</h3>
+                    <form action="#" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Personal Information -->
+                        <div class="md:col-span-2">
+                             <h4 class="text-lg font-semibold text-gray-700 mb-4 border-b pb-2">Personal Information</h4>
+                        </div>
+                        <div>
+                            <label for="career-name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                            <input type="text" name="career-name" id="career-name" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-vla-blue-light focus:border-vla-blue-light">
+                        </div>
+                        <div>
+                            <label for="career-email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                            <input type="email" name="career-email" id="career-email" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-vla-blue-light focus:border-vla-blue-light">
+                        </div>
+                        <div>
+                            <label for="career-phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                            <input type="tel" name="career-phone" id="career-phone" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-vla-blue-light focus:border-vla-blue-light">
+                        </div>
+                         <div>
+                            <label for="career-position" class="block text-sm font-medium text-gray-700">Position Applying For</label>
+                             <select id="career-position" name="career-position" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-vla-blue-light focus:border-vla-blue-light sm:text-sm rounded-md">
+                                <option>Administrative Assistant</option>
+                                <option>Property Inspector</option>
+                                <option>Route Planner</option>
+                                <option>Other Applications</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="career-address" class="block text-sm font-medium text-gray-700">Full Address</label>
+                            <input type="text" name="career-address" id="career-address" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-vla-blue-light focus:border-vla-blue-light">
+                        </div>
+                        
+                         <!-- File Upload & Cover Letter -->
+                        <div class="md:col-span-2 mt-4">
+                             <h4 class="text-lg font-semibold text-gray-700 mb-4 border-b pb-2">Documents</h4>
+                        </div>
+                         <div class="md:col-span-2">
+                            <label for="resume" class="block text-sm font-medium text-gray-700">Upload Resume/CV</label>
+                            <p class="text-xs text-gray-500 mb-2">Please upload your resume in PDF, DOC, or DOCX format (max 5MB).</p>
+                            <input type="file" name="resume" id="resume" required class="block w-full text-sm text-gray-500
+                                file:mr-4 file:py-2 file:px-4
+                                file:rounded-md file:border-0
+                                file:text-sm file:font-semibold
+                                file:bg-vla-blue-light/10 file:text-vla-blue-light
+                                hover:file:bg-vla-blue-light/20">
+                        </div>
+                         <div class="md:col-span-2">
+                            <label for="cover-letter" class="block text-sm font-medium text-gray-700">Cover Letter</label>
+                            <textarea id="cover-letter" name="cover-letter" rows="6" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-vla-blue-light focus:border-vla-blue-light"></textarea>
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <div class="md:col-span-2 text-center mt-4">
+                            <button type="submit" class="w-full md:w-auto inline-flex justify-center py-3 px-8 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-vla-blue-dark hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-vla-blue-light transition duration-300">
+                                Submit Application
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- Footer -->
+    <footer class="vla-blue-dark bg-vla-white">
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+                <div class="mb-4 md:mb-0">
+                     <a href="#about">
+                        <img src="./logo_footter.fw.png" style="width: auto; height: 56px;" alt="VLA Property Solutions Logo" onerror="this.onerror=null;this.src='https://placehold.co/200x50/031838/FFFFFF?text=VLA+Logo';">
+                    </a>
+                </div>
+                 <nav class="flex flex-wrap justify-center space-x-4 md:space-x-6 mb-4 md:mb-0">
+                    <a href="#about" class="hover:text-vla-blue-light transition duration-300">About</a>
+                    <a href="#why-us" class="hover:text-vla-blue-light transition duration-300">Why Us</a>
+                    <a href="#coverage" class="hover:text-vla-blue-light transition duration-300">Coverage</a>
+                    <a href="#contact" class="hover:text-vla-blue-light transition duration-300">Contact</a>
+                    <a href="#careers" class="hover:text-vla-blue-light transition duration-300">Careers</a>
+                </nav>
+                <div class="text-sm text-gray-400">
+                    &copy; <span id="year"></span> VLA Property Solutions. All Rights Reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // JavaScript for mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a link is clicked
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // JavaScript for Slider
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const slideCount = slides.length;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === index) {
+                    slide.classList.add('active');
+                }
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slideCount;
+            showSlide(currentSlide);
+        }
+
+        // Auto-play slider
+        setInterval(nextSlide, 5000); // Change slide every 5 seconds
+
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        var form = document.getElementById("contatc-form");
+  
+        async function handleSubmit(event) {
+            event.preventDefault();
+            var status = document.getElementById("my-form-status");
+            var data = new FormData(event.target);
+            fetch(event.target.action, {
+            method: form.method,
+            body: data,
+            headers: {
+                'Accept': 'application/json'
+            }
+            }).then(response => {
+            if (response.ok) {
+                status.innerHTML = "Thanks for your submission!";
+                form.reset()
+            } else {
+                response.json().then(data => {
+                if (Object.hasOwn(data, 'errors')) {
+                    status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
+                } else {
+                    status.innerHTML = "Oops! There was a problem submitting your form"
+                }
+                })
+            }
+            }).catch(error => {
+            status.innerHTML = "Oops! There was a problem submitting your form"
+            });
+        }
+        form.addEventListener("submit", handleSubmit)
+    </script>
+</body>
+</html>
